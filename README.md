@@ -26,7 +26,7 @@ By the end of this workshop, participants will be able to:
 
 ## 📚 Workshop Contents
 
-### 1️⃣ [Getting Started with R & RStudio](Lesson1_working_in_R.html)
+### 1️⃣ [Getting Started with R & RStudio](https://hassanghayas.github.io/R-Workshop/Lesson1_working_in_R.html)
 - Introduction to R environment
 - RStudio interface
 - Basic commands and data types
@@ -34,7 +34,7 @@ By the end of this workshop, participants will be able to:
 
 ---
 
-### 2️⃣ [Data Cleaning and Preparation](Lesson2_data_cleaning.html)
+### 2️⃣ [Data Cleaning and Preparation](https://hassanghayas.github.io/R-Workshop/Lesson2_data_cleaning.html)
 - Handling missing values
 - Data filtering and subsetting
 - Data transformation
@@ -42,7 +42,7 @@ By the end of this workshop, participants will be able to:
 
 ---
 
-### 3️⃣ [Graphical Data Visualization](Lesson3_data_visualization.html)
+### 3️⃣ [Graphical Data Visualization](https://hassanghayas.github.io/R-Workshop/Lesson3_data_visualization.html)
 - Histograms
 - Boxplots
 - Bar charts
@@ -51,7 +51,7 @@ By the end of this workshop, participants will be able to:
 - Publication-quality figures
 ---
 
-### 4️⃣ [Basic Statistical Analysis](Lesson4_statistics.html)
+### 4️⃣ [Basic Statistical Analysis](https://hassanghayas.github.io/R-Workshop/Lesson4_statistics.html)
 - Descriptive statistics
 - t-test
 - ANOVA
