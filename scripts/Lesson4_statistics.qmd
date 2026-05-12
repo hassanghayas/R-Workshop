@@ -1,0 +1,130 @@
+---
+title: "Basic Statistical Analysis"
+author: "Hassan Ghayas"
+date: '2026-04-27'
+format:
+  html:
+    self-contained: true
+    toc: true            # Enables the Table of Contents
+    toc-location: left   # Moves the TOC to the left (default is right)
+    toc-depth: 4         # Sets how many levels of headings to show
+editor: visual
+---
+
+## 📦 Load Libraries
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(palmerpenguins)
+
+```
+
+### Load data
+
+For basic statistical analysis, we will use palmerpenguins r package which has penguin dataset
+
+```{r}
+penguin_data <- penguins
+head(penguin_data)
+```
+
+### Summary Statistics
+
+Descriptive statistics are used to summarize and describe the main features of a dataset. Common descriptive statistics include:
+
+-   Mean
+
+-    Median
+
+-    Standard deviation
+
+-    Minimum and maximum values
+
+```{r}
+mean(penguin_data$body_mass_g, na.rm = TRUE)
+```
+
+```{r}
+median(penguin_data$body_mass_g, na.rm = TRUE)
+```
+
+```{r}
+sd(penguin_data$body_mass_g, na.rm = TRUE)
+```
+
+```{r}
+summary(penguin_data$body_mass_g)
+```
+
+```{r}
+penguin_data %>%
+  group_by(species) %>%
+  summarise(mean_mass = mean(body_mass_g, na.rm = TRUE))
+```
+
+### t-test
+
+A t-test is used to compare the means between two groups to determine whether they are statistically different.
+
+Required:
+
+-   One numeric variable
+
+-   One grouping variable with two categories
+
+```{r}
+t.test(body_mass_g ~ sex, data = penguin_data)
+```
+
+### ANOVA
+
+ANOVA is used to compare the means among three or more groups. For example comparing body mass among species
+
+Required:
+
+-   One numeric variable
+
+<!-- -->
+
+-    One categorical grouping variable with multiple groups
+
+```{r}
+anova_result <- aov(body_mass_g ~ species, data = penguin_data)
+summary(anova_result)
+```
+
+### Correlation
+
+Correlation measures the strength and direction of relationship between two numeric variables. Example: Does bill length increase with flipper length?
+
+```{r}
+cor(penguin_data$bill_length_mm,
+    penguin_data$flipper_length_mm,
+    use = "complete.obs" ) #removes missing values
+```
+
+### Linear Regression
+
+Linear regression models the relationship between:
+
+-    one predictor variable (X)
+
+-    one outcome variable (Y)
+
+It helps predict values and identify trends.
+
+```{r}
+model <- lm(flipper_length_mm ~ bill_length_mm, data = penguin_data)
+summary(model)
+```
+
+### plot with regression line
+
+```{r}
+ggplot(penguin_data,
+       aes(x = bill_length_mm,
+           y = flipper_length_mm)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```

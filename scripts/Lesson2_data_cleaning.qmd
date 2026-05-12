@@ -1,0 +1,228 @@
+---
+title: "Data Cleaning and Preparation in R"
+author: "Hassan Ghayas"
+date: '2026-04-26'
+format:
+  html:
+    self-contained: true
+    toc: true            # Enables the Table of Contents
+    toc-location: left   # Moves the TOC to the left (default is right)
+    toc-depth: 4         # Sets how many levels of headings to show
+editor: visual
+---
+
+## 📦 Load Libraries
+
+```{r}
+library(dplyr)
+library(readxl)
+```
+
+## 📂 Load dataset
+
+```{r}
+data <- read_excel("file1_dummy_patient_data_R_workshop.xlsx")
+```
+
+```{r}
+dim(data)
+```
+
+```{r}
+nrow(data)
+ncol(data)
+```
+
+#### Remove duplicated data
+
+```{r}
+#number of duplicated row
+sum(duplicated(data))
+```
+
+```{r}
+# Square bracket indexing to select rows and columns
+# df[row_index,column_index]
+data[1:5,]
+```
+
+```{r}
+#to see duplicate data
+data[duplicated(data), ]
+```
+
+```{r}
+# duplicate data including the first occurrence
+data[duplicated(data) | duplicated(data, fromLast = TRUE), ]
+```
+
+```{r}
+# remove duplicated data
+data_unique <- unique(data)
+```
+
+```{r}
+dim(data_unique)
+```
+
+rename variable
+
+```{r}
+names(data_unique)[names(data_unique)=="date of test"] <- "test_date"
+names(data_unique)[names(data_unique)=="result detail"] <- "result_detail"
+
+```
+
+#### Missing value
+
+```{r}
+sum(is.na(data_unique))
+```
+
+```{r}
+colSums(is.na(data_unique))
+```
+
+```{r}
+# to see the missing values
+data_unique[rowSums(is.na(data_unique)) > 0, ]
+```
+
+```{r}
+data_unique[!complete.cases(data_unique), ]
+```
+
+```{r}
+data_unique$location[is.na(data_unique$location)] <- "unknown"
+```
+
+```{r}
+sum(is.na(data_unique))
+```
+
+#### Data cleaning
+
+```{r}
+unique(data_unique$sex)
+```
+
+```{r}
+sum(data_unique$sex =="Female")
+sum(data_unique$sex =="Male")
+sum(data_unique$sex =="M")
+sum(data_unique$sex =="F")
+sum(data_unique$sex =="MALE")
+```
+
+```{r}
+data_unique$sex <- tolower(data_unique$sex)
+```
+
+```{r}
+unique(data_unique$sex)
+```
+
+```{r}
+data_unique$sex[data_unique$sex =="m"] <- "male"
+data_unique$sex[data_unique$sex =="f"] <- "female"
+```
+
+```{r}
+sum(data_unique$sex =="Female")
+sum(data_unique$sex =="Male")
+sum(data_unique$sex =="M")
+sum(data_unique$sex =="F")
+sum(data_unique$sex =="MALE")
+sum(data_unique$sex =="male")
+sum(data_unique$sex =="female")
+```
+
+#### Data transformation and filtering
+
+First we will create a new variable **age** from birth date and date of test.
+
+```{r}
+
+class(data_unique$birthdate)
+class(data_unique$test_date)
+```
+
+```{r}
+# convert birthdate and test_date into date formate, defualt formate is YYYY-MM-DD, if your data is in different formate than specify formate using as.Date(birthdate, format = "%d-%m-%Y")
+data_unique <- data_unique %>%
+  mutate(
+    birthdate = as.Date(birthdate),
+    test_date = as.Date(test_date)
+  )
+```
+
+```{r}
+library(lubridate)
+```
+
+```{r}
+data_unique <- data_unique %>%
+  mutate(age = as.numeric(difftime(test_date, birthdate, units = "days")) / 365.25)
+```
+
+```{r}
+colnames(data_unique)
+```
+
+```{r}
+# Mean age for males
+data_unique %>%
+  filter(sex == "male") %>%
+  summarise(mean_age = mean(age, na.rm = TRUE))
+```
+
+```{r}
+# Mean age for females
+data_unique %>%
+  filter(sex == "female") %>%
+  summarise(mean_age = mean(age, na.rm = TRUE))
+```
+
+```{r}
+data_unique %>%
+  group_by(sex) %>%
+  summarise(mean_age = mean(age, na.rm = TRUE))
+```
+
+```{r}
+data_unique %>% 
+  filter(test_procedure_name == "Hemoglobin") %>%
+  mutate(test_procedure_result = as.numeric(test_procedure_result)) %>% 
+  group_by(sex) %>% 
+  summarise(mean_hemoglobin = mean(test_procedure_result))
+```
+
+```{r}
+unique(data_unique$test_procedure_name)
+```
+
+```{r}
+# write cleaned data into new excel file 
+# write_xlsx(data_unique,"cleaned_dummy_patient_data_R_workshop.xlsx")
+```
+
+```{r}
+data <- data %>%
+  mutate(
+    result_category = case_when(
+      test_procedure_result < 70 &
+        test_procedure_name == "Blood Glucose" ~ "hypoglycemia",
+      
+      test_procedure_result > 125 &
+        test_procedure_name == "Blood Glucose" ~ "hyperglycemia",
+      
+      test_procedure_result < 12 &
+        test_procedure_name == "Hemoglobin" ~ "anemia",
+      
+      test_procedure_result > 18 &
+        test_procedure_name == "Hemoglobin" ~ "polycythemia",
+      
+      TRUE ~ "normal"
+    )
+  )
+```

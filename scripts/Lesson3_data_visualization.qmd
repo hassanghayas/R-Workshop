@@ -1,0 +1,106 @@
+---
+title: "Data Visualization"
+author: "Hassan Ghayas"
+date: '2026-04-26'
+format:
+  html:
+    self-contained: true
+    toc: true            # Enables the Table of Contents
+    toc-location: left   # Moves the TOC to the left (default is right)
+    toc-depth: 4         # Sets how many levels of headings to show
+editor: visual
+---
+
+## 📦 Load Libraries
+
+```{r}
+library(dplyr)
+library(readxl)
+library(ggplot2)
+```
+
+# Simple Basic Graph
+
+Basic graph types can be created in R, such as **histograms, barplots, scatterplots** or **boxplots**. These can be generated using commands or function such as **hist()**, **barplot()**, **plot()** or **boxplot()** respectively.
+
+📂 Load dataset
+
+```{r}
+# Read dataset
+data_unique <- read_excel("cleaned_dummy_patient_data_R_workshop.xlsx")
+```
+
+## Barplot
+
+Prepare data for plot
+
+```{r}
+# prepare data for plot
+plot_data <- data_unique %>% 
+  filter(test_procedure_name == "Hemoglobin") %>%
+  group_by(sex) %>% 
+  count(result_category)
+```
+
+Generate simple barplot
+
+```{r}
+barplot(
+  height = plot_data$n,
+  names.arg = paste(plot_data$sex, plot_data$result_category, sep = "-"),
+  col = "skyblue",
+  main = "Hemoglobin Result by Gender",
+  ylab = "Count",
+  las = 2,
+  cex.names = 0.6,
+  cex.axis = 0.8
+)
+```
+
+## Grouped barplot
+
+Prepare data for Grouped Bar Plot
+
+```{r}
+plot_data2 <- table(
+  data_unique$result_category[data_unique$test_procedure_name == "Hemoglobin"],
+  data_unique$sex[data_unique$test_procedure_name == "Hemoglobin"]
+)
+```
+
+Generate grouped bar plot
+
+```{r}
+barplot(
+  plot_data2,
+  beside = TRUE,
+  col = c("tomato", "skyblue", "lightgreen"),
+  legend = TRUE,
+  main = "Hemoglobin Result by Sex",
+  xlab = "Sex",
+  ylab = "Count",
+  args.legend = list(x = "topright", inset = c(-0.05, -0.1))
+)
+```
+
+# Data visualization using ggplot2
+
+This package is based on using the **grammar of graphics** concept. The grammar of graphics is implemented in a layered approach, using **layers** of information (data complemented with statistical or graphical information) to build up step by step to a final display of a graph.
+
+![ggplot2_layout](gg-1.png)
+
+plotting using ggplot2
+
+```{r}
+data_unique %>% 
+  filter(test_procedure_name == "Hemoglobin") %>%
+  ggplot()+
+  geom_bar(aes(x=sex, fill =result_category), color = "black", position= 'dodge2')+
+  xlab("Gender")+
+  ylab("number of patient")+
+  labs(
+    title = "Hemoglobin",
+    fill = 'Results'
+  )+
+  theme_bw()
+```

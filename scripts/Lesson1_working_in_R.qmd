@@ -1,0 +1,134 @@
+---
+title: "Basic command and data types"
+author: "Hassan Ghayas"
+date: '2026-04-26'
+format:
+  html:
+    self-contained: true
+    toc: true            # Enables the Table of Contents
+    toc-location: left   # Moves the TOC to the left (default is right)
+    toc-depth: 3         # Sets how many levels of headings to show
+editor: visual
+---
+
+## **Variable**
+
+Variables are objects in R use to store values. It can be single value, basic or complex arithmetic operations, or a data matrix or a data frame. Variable can be assign using either the "**\<-**" or "**=**" operators. (alt+ -)
+
+```{r}
+a = 5
+b <- 8*3
+c = "Data analysis with R"
+a + b
+c
+```
+
+```{r}
+cat(a,c)
+```
+
+## Basic command
+
+```{r}
+x <-  3
+y <-  2
+```
+
+```{r}
+x+y
+```
+
+```{r}
+class(x)
+class(y)
+x <- as.integer(x)
+class(x)
+```
+
+```{r}
+sqrt(3 * 4 + 2 * 5 + 3)
+```
+
+```{r}
+log(5) + log(10)
+```
+
+```{r}
+log(50) 
+```
+
+```{r}
+sum(3 * 4 + 2 * 5 + 3)
+```
+
+## Data Type
+
+Variables can contain values of specific types within R. The six **data types** that R uses include:
+
+-   `"numeric"` ---\> any numerical value, including whole numbers and decimals.
+
+-   `"character"` ---\> text values, denoted by using quotes ("") around text.
+
+-   `"integer"` ---\> whole numbers (e.g., `2L`, the `L` indicates to R that it's an integer). It behaves similar to the `numeric` data type for most tasks or functions; however, it takes up less storage space than numeric data.
+
+-   `"logical"` ---\> `TRUE` and `FALSE` (the Boolean data type). The `logical` data type can be specified using four values, `TRUE` in all capital letters, `FALSE` in all capital letters, a single capital `T` or a single capital `F`.
+
+## Data Structure
+
+### Vector
+
+A vector is substantially a list of variables. A vector consists of a collection of numbers, arithmetic expressions, logical values or character strings for example. However, each vector must have all components of the same type, i.e numeric, character, or logical
+
+```{r}
+c(3,8,2)
+c("mike", "John")
+c(5,9,"abc", TRUE)
+```
+
+```{r}
+numbers <- c(38,26,35)
+name <- c("mike", "john", "jane")
+any_text <- c(5,9,"abc", TRUE)
+```
+
+```{r}
+class(numbers)
+class(name)
+class(any_text)
+```
+
+### Data Frame
+
+Two-dimensional, tabular data structure used to store data where each column represents a variable and each row represents an observation
+
+```{r}
+df <- data.frame(name, numbers)
+```
+
+```{r}
+head(df)
+```
+
+```{r}
+colnames(df)[2] <- "age"
+```
+
+```{r}
+names(df)[names(df)=="numbers"] <- "age"
+```
+
+```{r}
+summary(df$age)
+```
+
+### Matrix
+
+A **matrix** in R is a collection of vectors of **same length and identical datatype**
+
+```{r}
+data_matrix <- as.matrix(cbind(a=numbers,b=2*numbers,c=numbers/1.5))
+```
+
+```{r}
+data_matrix
+```
