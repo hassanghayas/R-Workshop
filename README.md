@@ -1,3 +1,7 @@
+
+[![Website](https://img.shields.io/badge/View-Website-blue)](https://hassanghayas.github.io/R-Workshop/)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/hassanghayas/R-Workshop)
+
 # 📊 Introduction to R for Biomedical Data Analysis Workshop
 
 ## R for Data Analysis & Visualization 
@@ -39,6 +43,8 @@ By the end of this workshop, participants will be able to:
 - Data filtering and subsetting
 - Data transformation
 - Working with dates and calculating age
+
+📥 [Download Dataset](https://raw.githubusercontent.com/hassanghayas/R-Workshop/main/data/file1_dummy_patient_data_R_workshop.xlsx) for this practicle session
 
 ---
 
@@ -135,17 +141,3 @@ This workshop is intended for:
 - Beginners in bioinformatics and data analysis
 
 ---
-
-## 🙌 Acknowledgements
-
-Thank you to all participants for joining this workshop.
-
-We hope this training helps you start your journey in biomedical data analysis using R.
-
----
-
-## 📧 Contact
-
-Instructor: **Hassan Ghayas**
-
-For questions or feedback, feel free to open an issue in this repository.
