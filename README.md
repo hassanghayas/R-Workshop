@@ -44,7 +44,7 @@ By the end of this workshop, participants will be able to:
 - Data transformation
 - Working with dates and calculating age
 
-📥 [Download Dataset](https://raw.githubusercontent.com/hassanghayas/R-Workshop/main/data/file1_dummy_patient_data_R_workshop.xlsx) for this practicle session
+📥 [Download Dataset](https://raw.githubusercontent.com/hassanghayas/R-Workshop/main/data/file1_dummy_patient_data_R_workshop.xlsx) for this practical session
 
 ---
 
@@ -55,6 +55,7 @@ By the end of this workshop, participants will be able to:
 - Scatter plots
 - Introduction to `ggplot2`
 - Publication-quality figures
+
 ---
 
 ### 4️⃣ [Basic Statistical Analysis](https://hassanghayas.github.io/R-Workshop/Lesson4_statistics.html)
@@ -62,6 +63,7 @@ By the end of this workshop, participants will be able to:
 - t-test
 - ANOVA
 - Correlation analysis
+
 ---
 
 ### 5️⃣ Mini Practical Exercise
