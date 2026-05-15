@@ -39,18 +39,18 @@ By the end of this workshop, participants will be able to:
 ---
 
 ### 2️⃣ [Data Cleaning and Preparation](https://hassanghayas.github.io/R-Workshop/Lesson2_data_cleaning.html)
+
+📥 [Download Dataset](https://raw.githubusercontent.com/hassanghayas/R-Workshop/main/data/file1_dummy_patient_data_R_workshop.xlsx) for this practical session
 - Handling missing values
 - Data filtering and subsetting
 - Data transformation
 - Working with dates and calculating age
 
-📥 [Download Dataset](https://raw.githubusercontent.com/hassanghayas/R-Workshop/main/data/file1_dummy_patient_data_R_workshop.xlsx) for this practical session
-
-📥 [Download Dataset2](https://raw.githubusercontent.com/hassanghayas/R-Workshop/main/data/cleaned_dummy_patient_data_R_workshop.xlsx) for this practical session
-
 ---
 
 ### 3️⃣ [Graphical Data Visualization](https://hassanghayas.github.io/R-Workshop/Lesson3_data_visualization.html)
+
+📥 [Download Dataset](https://raw.githubusercontent.com/hassanghayas/R-Workshop/main/data/cleaned_dummy_patient_data_R_workshop.xlsx) for this practical session
 - Histograms
 - Boxplots
 - Bar charts
@@ -97,6 +97,7 @@ install.packages(c(
   "ggplot2",
   "dplyr",
   "lubridate",
+  "readxl"
   "writexl",
   "palmerpenguins"
 ))
